@@ -54,3 +54,6 @@ Route::resource('quotationProducts', App\Http\Controllers\QuotationProductsContr
 
 
 Route::resource('quotationProducts', App\Http\Controllers\QuotationProductsController::class);
+
+
+Route::resource('jobOrders', App\Http\Controllers\JobOrderController::class);

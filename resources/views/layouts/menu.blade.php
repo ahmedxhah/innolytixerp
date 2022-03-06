@@ -139,9 +139,9 @@ $isPermissionActive = Request::is($urlAdmin.'*permissions*');
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('quotationProducts.index') }}"
-       class="nav-link {{ Request::is('quotationProducts*') ? 'active' : '' }}">
-        <p>@lang('models/quotationProducts.plural')</p>
+    <a href="{{ route('jobOrders.index') }}"
+       class="nav-link {{ Request::is('jobOrders*') ? 'active' : '' }}">
+        <p>@lang('models/jobOrders.plural')</p>
     </a>
 </li>
 
