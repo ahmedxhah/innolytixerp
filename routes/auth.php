@@ -57,3 +57,12 @@ Route::resource('quotationProducts', App\Http\Controllers\QuotationProductsContr
 
 
 Route::resource('jobOrders', App\Http\Controllers\JobOrderController::class);
+
+
+Route::resource('banks', App\Http\Controllers\BanksController::class);
+
+
+Route::resource('invoices', App\Http\Controllers\InvoicesController::class);
+
+
+Route::resource('invoicesProducts', App\Http\Controllers\InvoicesProductsController::class);

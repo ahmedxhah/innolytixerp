@@ -145,3 +145,24 @@ $isPermissionActive = Request::is($urlAdmin.'*permissions*');
     </a>
 </li>
 
+<li class="nav-item">
+    <a href="{{ route('banks.index') }}"
+       class="nav-link {{ Request::is('banks*') ? 'active' : '' }}">
+        <p>@lang('models/banks.plural')</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('invoices.index') }}"
+       class="nav-link {{ Request::is('invoices*') ? 'active' : '' }}">
+        <p>@lang('models/invoices.plural')</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('invoicesProducts.index') }}"
+       class="nav-link {{ Request::is('invoicesProducts*') ? 'active' : '' }}">
+        <p>@lang('models/invoicesProducts.plural')</p>
+    </a>
+</li>
+
