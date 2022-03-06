@@ -416,7 +416,7 @@
 
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-center pt-8 sm:justify-center sm:pt-0">
-                <img class="logo" src="{{url('images/logo.png')}}" alt="Innolytix logo " width="110px" height="110px">
+                <img class="logo" src="{{url('images/innolytix.png')}}" alt="Innolytix logo " width="110px" height="110px">
             </div>
 
             <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">

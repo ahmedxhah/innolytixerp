@@ -25,6 +25,7 @@ class CreateBanksTable extends Migration
             $table->bigInteger('created_by');
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('created_by')->references('id')->on('users');
         });
     }
 
