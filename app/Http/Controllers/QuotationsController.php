@@ -8,6 +8,7 @@ use App\Http\Requests\CreateQuotationsRequest;
 use App\Http\Requests\UpdateQuotationsRequest;
 use App\Repositories\QuotationsRepository;
 use Flash;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AppBaseController;
 use Response;
 
@@ -53,7 +54,7 @@ class QuotationsController extends AppBaseController
     public function store(CreateQuotationsRequest $request)
     {
         $input = $request->all();
-
+        $input['created_by']=Auth::id();
         $quotations = $this->quotationsRepository->create($input);
 
         Flash::success(__('messages.saved', ['model' => __('models/quotations.singular')]));

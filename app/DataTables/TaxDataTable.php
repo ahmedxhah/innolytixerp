@@ -89,6 +89,7 @@ class TaxDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            'title' => new Column(['title' => __('models/taxes.fields.title'), 'data' => 'title']),
             'percent' => new Column(['title' => __('models/taxes.fields.percent'), 'data' => 'percent']),
             'created_by' => new Column(['title' => __('models/taxes.fields.created_by'), 'data' => 'created_by'])
         ];

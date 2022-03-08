@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Requests\CreateOfficeDetailsRequest;
 use App\Http\Requests\UpdateOfficeDetailsRequest;
 use App\Repositories\OfficeDetailsRepository;
+use Illuminate\Support\Facades\Auth;
 use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
@@ -53,7 +54,7 @@ class OfficeDetailsController extends AppBaseController
     public function store(CreateOfficeDetailsRequest $request)
     {
         $input = $request->all();
-
+        $input['created_by']=Auth::id();
         $officeDetails = $this->officeDetailsRepository->create($input);
 
         Flash::success(__('messages.saved', ['model' => __('models/officeDetails.singular')]));

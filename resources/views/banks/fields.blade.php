@@ -34,8 +34,3 @@
     {!! Form::text('opening_balance', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Created By Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('created_by', __('models/banks.fields.created_by').':') !!}
-    {!! Form::text('created_by', null, ['class' => 'form-control']) !!}
-</div>

@@ -8,6 +8,7 @@ use App\Http\Requests\CreateBanksRequest;
 use App\Http\Requests\UpdateBanksRequest;
 use App\Repositories\BanksRepository;
 use Flash;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AppBaseController;
 use Response;
 
@@ -53,7 +54,7 @@ class BanksController extends AppBaseController
     public function store(CreateBanksRequest $request)
     {
         $input = $request->all();
-
+        $input['created_by']=Auth::id();
         $banks = $this->banksRepository->create($input);
 
         Flash::success(__('messages.saved', ['model' => __('models/banks.singular')]));

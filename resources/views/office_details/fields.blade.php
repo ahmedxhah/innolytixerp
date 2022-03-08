@@ -27,9 +27,3 @@
     {!! Form::label('strn_no', __('models/officeDetails.fields.strn_no').':') !!}
     {!! Form::text('strn_no', null, ['class' => 'form-control']) !!}
 </div>
-
-<!-- Created By Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('created_by', __('models/officeDetails.fields.created_by').':') !!}
-    {!! Form::number('created_by', null, ['class' => 'form-control']) !!}
-</div>

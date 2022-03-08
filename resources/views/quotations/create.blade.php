@@ -15,13 +15,29 @@
 
         @include('adminlte-templates::common.errors')
 
+
+
+        {!! Form::open(['route' => 'quotations.store']) !!}
         <div class="card">
-
-            {!! Form::open(['route' => 'quotations.store']) !!}
-
             <div class="card-body">
                 <div class="row">
                     @include('quotations.fields')
+                </div>
+            </div>
+        </div>
+        <p>ADD PRODUCTS</p>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    @include('quotations.productfield')
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    @include('quotations.endfield')
                 </div>
             </div>
 
@@ -31,9 +47,9 @@
                  @lang('crud.cancel')
                 </a>
             </div>
-
-            {!! Form::close() !!}
-
         </div>
+        {!! Form::close() !!}
+
+
     </div>
 @endsection

@@ -20,13 +20,14 @@ class Tax extends Model
 
 
     public $table = 'taxs';
-    
+
 
     protected $dates = ['deleted_at'];
 
 
 
     public $fillable = [
+        'title',
         'percent',
         'created_by'
     ];
@@ -49,8 +50,8 @@ class Tax extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
-    
+
 }
