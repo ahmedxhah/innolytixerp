@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\QuotationProducts;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
 /**
@@ -27,7 +29,7 @@ class Quotations extends Model
 
 
     public $table = 'quotation';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -68,8 +70,15 @@ class Quotations extends Model
      * @var array
      */
     public static $rules = [
-        
-    ];
 
-    
+    ];
+        /**
+         * Get all of the comments for the Quotations
+         *
+         * @return \Illuminate\Database\Eloquent\Relations\HasMany
+         */
+        public function products(): HasMany
+        {
+            return $this->hasMany(QuotationProducts::class, 'quotation_id', 'id');
+        }
 }

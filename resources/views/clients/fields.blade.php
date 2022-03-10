@@ -11,9 +11,9 @@
 </div>
 
 <!-- Ntn No Field -->
-<div class="form-group col-sm-12 col-lg-12">
+<div class="form-group col-sm-6">
     {!! Form::label('ntn_no', __('models/clients.fields.ntn_no').':') !!}
-    {!! Form::textarea('ntn_no', null, ['class' => 'form-control']) !!}
+    {!! Form::text('ntn_no', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Srtn No Field -->

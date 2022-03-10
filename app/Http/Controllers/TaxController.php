@@ -8,6 +8,7 @@ use App\Http\Requests\CreateTaxRequest;
 use App\Http\Requests\UpdateTaxRequest;
 use App\Repositories\TaxRepository;
 use Flash;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AppBaseController;
 use Response;
 
@@ -53,7 +54,7 @@ class TaxController extends AppBaseController
     public function store(CreateTaxRequest $request)
     {
         $input = $request->all();
-
+        $input['created_by']=Auth::id();
         $tax = $this->taxRepository->create($input);
 
         Flash::success(__('messages.saved', ['model' => __('models/taxes.singular')]));

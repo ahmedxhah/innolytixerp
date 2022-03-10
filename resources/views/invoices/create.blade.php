@@ -14,26 +14,34 @@
     <div class="content px-3">
 
         @include('adminlte-templates::common.errors')
-
+        {!! Form::open(['route' => 'invoices.store']) !!}
         <div class="card">
-
-            {!! Form::open(['route' => 'invoices.store']) !!}
-
             <div class="card-body">
                 <div class="row">
                     @include('invoices.fields')
                 </div>
             </div>
-
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    @include('invoices.invoiceproduct')
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    @include('invoices.fields')
+                </div>
+            </div>
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
                 <a href="{{ route('invoices.index') }}" class="btn btn-default">
                  @lang('crud.cancel')
                 </a>
             </div>
-
-            {!! Form::close() !!}
-
         </div>
+        {!! Form::close() !!}
     </div>
 @endsection

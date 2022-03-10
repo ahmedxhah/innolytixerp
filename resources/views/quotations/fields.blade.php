@@ -1,13 +1,23 @@
 <!-- Client Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('client_id', __('models/quotations.fields.client_id').':') !!}
-    {!! Form::number('client_id', null, ['class' => 'form-control']) !!}
+    {!! Form::label('client_id','Client:') !!}
+    <select name="client_id" id="" class="form-control">
+        @foreach ($clients as $item)
+            <option value="{{$item->id}}">{{$item->name}}</option>
+        @endforeach
+    </select>
+    {{-- {!! Form::number('client_id', null, ['class' => 'form-control']) !!} --}}
 </div>
 
 <!-- Officedetails Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('officedetails_id', __('models/quotations.fields.officedetails_id').':') !!}
-    {!! Form::number('officedetails_id', null, ['class' => 'form-control']) !!}
+    {!! Form::label('officedetails_id', 'Office Details:') !!}
+    {{-- {!! Form::number('officedetails_id', null, ['class' => 'form-control']) !!} --}}
+    <select name="officedetails_id" id="" class="form-control">
+        @foreach ($officedetails as $oitem)
+            <option value="{{$oitem->id}}">{{$oitem->name}}</option>
+        @endforeach
+    </select>
 </div>
 
 <!-- Date Field -->

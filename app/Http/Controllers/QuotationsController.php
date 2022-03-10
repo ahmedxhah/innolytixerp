@@ -6,6 +6,11 @@ use App\DataTables\QuotationsDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateQuotationsRequest;
 use App\Http\Requests\UpdateQuotationsRequest;
+use App\Models\Clients;
+use App\Models\OfficeDetails;
+use App\Models\QuotationProducts;
+use App\Models\Tax;
+use App\Models\Vendor;
 use App\Repositories\QuotationsRepository;
 use Flash;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +46,8 @@ class QuotationsController extends AppBaseController
      */
     public function create()
     {
-        return view('quotations.create');
+        // $clients=;
+        return view('quotations.create')->with('clients',Clients::all())->with('officedetails',OfficeDetails::all())->with('taxs',Tax::all())->with('vendors',Vendor::all());
     }
 
     /**
@@ -54,9 +60,18 @@ class QuotationsController extends AppBaseController
     public function store(CreateQuotationsRequest $request)
     {
         $input = $request->all();
+        $products=$input['product'];
+        unset($input['product']);
         $input['created_by']=Auth::id();
         $quotations = $this->quotationsRepository->create($input);
-
+        if($quotations){
+            foreach($products as $k=>$pro){
+                $products[$k]['quotation_id']=$quotations->id;
+                $products[$k]['total']=$pro['qty']*$pro['unitprice'];
+                QuotationProducts::create($products[$k]);
+            }
+        }
+        // return view('quotations.quotation')->with('quotation',);
         Flash::success(__('messages.saved', ['model' => __('models/quotations.singular')]));
 
         return redirect(route('quotations.index'));
@@ -72,14 +87,13 @@ class QuotationsController extends AppBaseController
     public function show($id)
     {
         $quotations = $this->quotationsRepository->find($id);
-
         if (empty($quotations)) {
             Flash::error(__('messages.not_found', ['model' => __('models/quotations.singular')]));
 
             return redirect(route('quotations.index'));
         }
-
-        return view('quotations.show')->with('quotations', $quotations);
+        return view('quotations.quotation')->with('quotations', $quotations)->with('products',QuotationProducts::where('quotation_id',$quotations->id)->get());
+        // return view('quotations.show')->with('quotations', $quotations);
     }
 
     /**

@@ -13,7 +13,12 @@
 <!-- Tax Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('tax', __('models/quotations.fields.tax').':') !!}
-    {!! Form::number('tax', null, ['class' => 'form-control']) !!}
+    {{-- {!! Form::number('tax', null, ['class' => 'form-control']) !!} --}}
+    <select name="tax" id="" class="form-control">
+        @foreach ($taxs as $titem)
+            <option value="{{$titem->id}}">{{$titem->title}}</option>
+        @endforeach
+    </select>
 </div>
 
 <!-- Grand Total Field -->
