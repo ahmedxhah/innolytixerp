@@ -62,12 +62,21 @@ class QuotationsController extends AppBaseController
         $input = $request->all();
         $products=$input['product'];
         unset($input['product']);
+
+        $subtotal=0;
+        foreach($products as $k=>$pro){
+            $products[$k]['total']=$pro['qty']*$pro['unitprice'];
+            $subtotal+=$pro['qty']*$pro['unitprice'];
+        }
         $input['created_by']=Auth::id();
+        $input['sub_total']=$subtotal;
+        $discount=($input['discount']/100)*$subtotal;
+        $tax=($input['tax']/100)*$subtotal;
+        $input['grand_total']=$subtotal+$tax-$discount;
         $quotations = $this->quotationsRepository->create($input);
         if($quotations){
             foreach($products as $k=>$pro){
                 $products[$k]['quotation_id']=$quotations->id;
-                $products[$k]['total']=$pro['qty']*$pro['unitprice'];
                 QuotationProducts::create($products[$k]);
             }
         }
