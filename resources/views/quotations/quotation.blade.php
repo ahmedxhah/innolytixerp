@@ -27,7 +27,7 @@
 
         /* table */
         table {
-            font-size: 75%;
+            font-size: 90%;
             table-layout: fixed;
 
         }
@@ -182,34 +182,12 @@
         }
 
         table.inventory th {
-            border: 1px solid black;
+            border: 2px solid black;
             font-weight: bold;
             text-align: center;
         }
         table.inventory td {
-            border: 1px solid black;
-        }
-        table.inventory td:nth-child(1) {
-            width: 26%;
-        }
-
-        table.inventory td:nth-child(2) {
-            width: 38%;
-        }
-
-        table.inventory td:nth-child(3) {
-            text-align: right;
-            width: 12%;
-        }
-
-        table.inventory td:nth-child(4) {
-            text-align: right;
-            width: 12%;
-        }
-
-        table.inventory td:nth-child(5) {
-            text-align: right;
-            width: 12%;
+            border: 2px solid black;
         }
 
         /* table balance */
@@ -217,7 +195,7 @@
         table.balance th,
         table.balance td {
             width: 50%;
-             border: 1px solid black;
+             border: 2px solid black;
              text-align:center;
         }
 
@@ -336,7 +314,7 @@
         /* Styles go here */
 
 .page-header, .page-header-space {
-  height: 20px;
+  height: 25px;
 }
 
 .page-footer, .page-footer-space {
@@ -361,10 +339,11 @@
 }
 .a4page {
     width: 8.5in;
-    padding: 0.1cm;
+    /* padding: 0.1cm; */
     margin: 0cm auto;
     background: white;
     font-family:arial;
+    border: solid 1px black;
 
 }
 .page {
@@ -396,7 +375,7 @@
 
 <!--NEW CONTENT-->
 
-<body class="a4page">
+<body class="a4page" >
 
   <div class="page-header">
         <div class="row downlo donotprint">
@@ -425,60 +404,148 @@
     <tbody style="background:white;">
       <tr>
         {{-- SECTION ONE --}}
-        <td style="width: 30%; ">
+        <td >
             <!--*** CONTENT GOES HERE ***-->
-            <div class="page" style="line-height: 1.3;">
-              <!---->
+            <div class="page " style="line-height: 1.3;">
 
+                    <table style="width: 100%" class="table inventory">
+                        <tr>
+                            <td style=" !important; text-align:center;" colspan="2">
+                                <span style="text-align:center; font-weight:bold; font-size:25px;">QUOTATION</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td  style="border:none;" colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td style="border: none !important;">
+                                <span>Serial No: </span><span style="text-decoration: underline; text-align:right; ">{{@$quotations['date']}}</span><br>
 
-                  <header>
-                      <div style="float:right; width:100%;">
-                          <div style="float:left; width:60%;">
-                              @if(@$data['CUSTOMER'])
-                              <span style=" font-weight: bold;">{{@$data['CUSTOMER']}}</span><br>
-                              @endif
-                              @if(@$data['AREANAME'])
-                              <span>{{@$data['AREANAME']}}</span><br>
-                              @endif
-                              @if(@$data['quotation']->project_name)
-                              <span style=" font-weight: bold;">Project: </span>{{@$data['quotation']->project_name}}<br>
-                              @endif
-                          </div>
-                          <div style="float:left; width:40%; text-align: right;">
-                              <span style=" font-weight: bold;">Date: </span><span style="text-decoration: underline; text-align:right; font-weight: bold;">{{@$data['TRANS_DATE']}}</span><br>
-                              <span style=" font-weight: bold;">Tr#: </span><span style="text-decoration: underline; text-align:right; font-weight: bold;"> {{@$data['TR']}}</span>
-                          </div>
-                      </div>
-                  </header>
+                            </td>
+                            <td style="border: none !important; text-align:right">
+                                <span>Date: </span><span style="text-decoration: underline; text-align:right; ">{{@$quotations['date']}}</span><br>
+                            </td>
+                        </tr>
+                    </table>
+
+                <header>
+                    <table style="width: 100%" class="table inventory">
+                        <tr>
+                            <td>
+                                <div class="row" style="margin-bottom: 20px;"><span>Supplier's Name</span></div>
+                                <div class="row">
+                                    @if(@$office_detail->name)
+                                    <span style=" font-weight: bold;">{{@$office_detail->name}}</span>
+                                    @endif
+                                </div>
+                                <div class="row" style="margin-bottom: 20px;">
+                                    @if(@$office_detail->address)
+                                    <span>{{@$office_detail->address}}</span>
+                                    @endif
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <span>Telephone No.:</span>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <span>{{@$office_detail->phone}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <span>STRN/GST No.:</span>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <span>{{@$office_detail->strn_no}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <span>NTN:</span>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <span>{{@$office_detail->ntn_no}}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row" style="margin-bottom: 20px;">
+                                    <span>Customer's Name</span>
+                                </div>
+                                <div class="row">
+                                    @if(@$client->name)
+                                    <span style=" font-weight: bold;">{{@$client->name}}</span>
+                                    @endif
+                                </div>
+                                <div class="row" style="margin-bottom: 20px;">
+                                    @if(@$client->address)
+                                    <span>{{@$client->address}}</span>
+                                    @endif
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <span>Telephone No.:</span>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <span>{{@$client->phone}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <span>STRN/GST No.:</span>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <span>{{@$client->srtn_no}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <span>NTN:</span>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <span>{{@$client->ntn_no}}</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </header>
                   <article>
 
                       <?php
                       $total_row = 0;
-
+// dd($office_detail);
                       ?>
                       <table class="inventory">
                           <thead>
                               <tr>
                                   <th style="width:10% !important"><span>No</span></th>
-                                  <th style="width:15% !important"><span>Code</span></th>
-                                  <th style="width:65% !important"><span>Name</span></th>
-                                  <th style="width:10% !important"><span>QTY</span></th>
+                                  <th style="width:15% !important"><span>Name</span></th>
+                                  <th style="width:65% !important"><span>Description</span></th>
+                                  <th style="width:10% !important"><span>Model</span></th>
+                                  <th style="width:10% !important"><span>Brand</span></th>
+                                  <th style="width:10% !important"><span>Unit Price</span></th>
+                                  <th style="width:10% !important"><span>Qty</span></th>
+                                  <th style="width:10% !important"><span>Total</span></th>
                               </tr>
                           </thead>
                           <tbody>
-
                               @if($products)
-
+                            {{-- {{dd($products)}} --}}
                               @foreach($products as $count=>$p)
                               <tr>
                                   <td  style="text-align:center;">{{$count+1}}</td>
                                   <td  style="text-align:center;">{{$p->name}}</td>
-                                  <td  style="text-align:center;">{{$p->model}}</td>
-                                  <td  style="text-align:center;">{{$p->name}}</td>
+                                  <td  style="text-align:center;">{{$p->description}}</td>
+                                  <td  style="text-align:center;">{{$p->model_no}}</td>
+                                  <td  style="text-align:center;">{{$p->brand}}</td>
+                                  <td  style="text-align:center;">{{$p->unitprice}}</td>
+                                  <td  style="text-align:center;">{{$p->qty}}</td>
+                                  <td  style="text-align:center;">{{$p->total}}</td>
                               </tr>
                           </tbody>
                           <?php
-                          $total_row += (int)$p->qty;
+                          $total_row += (int)$p->total;
                           ?>
 
                           @endforeach
@@ -486,10 +553,36 @@
                       </table>
 
                       <table class="balance">
-                          <tr>
-                              <th>Total Qty</th>
-                              <td><span>Rs: </span><span>{{round(@$total_row)}}/-</span></td>
-                          </tr>
+                        @if(@$quotations->discount)
+                            <tr>
+                                <th>Sub Total</th>
+                                <td><span>Rs: </span><span>{{$quotations->sub_total}}/-</span></td>
+                            </tr>
+                        @endif
+                        @if(@$quotations->discount)
+                            <tr>
+                                <th>Discount</th>
+                                <td><span>Rs: </span><span>{{$quotations->discount}}/-</span></td>
+                            </tr>
+                        @endif
+                        @if(@$quotations->discount)
+                        <tr>
+                            <th>Total</th>
+                            <td><span>Rs: </span><span>{{round(@$total_row)}}/-</span></td>
+                        </tr>
+                        @endif
+                        @if(@$quotations->tax)
+                        <tr>
+                            <th>Tax {{$quotations->tax}}%</th>
+                            <td><span>Rs: </span><span>{{$quotations->tax}}/-</span></td>
+                        </tr>
+                        @endif
+                        @if(@$quotations->grand_total)
+                        <tr>
+                            <th>Grand Total</th>
+                            <td><span>Rs: </span><span>{{$quotations->grand_total}}/-</span></td>
+                        </tr>
+                        @endif
                       </table>
                   </article>
 

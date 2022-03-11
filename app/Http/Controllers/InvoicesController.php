@@ -6,7 +6,13 @@ use App\DataTables\InvoicesDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateInvoicesRequest;
 use App\Http\Requests\UpdateInvoicesRequest;
+use App\Models\Banks;
 use App\Repositories\InvoicesRepository;
+use App\Models\Clients;
+use App\Models\InvoicesProducts;
+use App\Models\OfficeDetails;
+use App\Models\Tax;
+use App\Models\Vendor;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
@@ -40,7 +46,12 @@ class InvoicesController extends AppBaseController
      */
     public function create()
     {
-        return view('invoices.create');
+        return view('invoices.create')
+        ->with('clients',Clients::all())
+        ->with('officedetails',OfficeDetails::all())
+        ->with('taxs',Tax::all())
+        ->with('vendors',Vendor::all())
+        ->with('banks',Banks::all());
     }
 
     /**
@@ -53,8 +64,17 @@ class InvoicesController extends AppBaseController
     public function store(CreateInvoicesRequest $request)
     {
         $input = $request->all();
-
+        $products=$input['product'];
+        unset($input['product']);
+        $input['created_by']=Auth::id();
         $invoices = $this->invoicesRepository->create($input);
+        if($invoices){
+            foreach($products as $k=>$pro){
+                $products[$k]['quotation_id']=$invoices->id;
+                $products[$k]['total']=$pro['qty']*$pro['unitprice'];
+                InvoicesProducts::create($products[$k]);
+            }
+        }
 
         Flash::success(__('messages.saved', ['model' => __('models/invoices.singular')]));
 

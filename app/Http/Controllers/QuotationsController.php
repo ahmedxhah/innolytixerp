@@ -92,7 +92,12 @@ class QuotationsController extends AppBaseController
 
             return redirect(route('quotations.index'));
         }
-        return view('quotations.quotation')->with('quotations', $quotations)->with('products',QuotationProducts::where('quotation_id',$quotations->id)->get());
+        // dd($quotations);
+        return view('quotations.quotation')
+        ->with('quotations', $quotations)
+        ->with('products',QuotationProducts::where('quotation_id',$quotations->id)->get())
+        ->with('client',Clients::find($quotations->client_id))
+        ->with('office_detail',OfficeDetails::find($quotations->officedetails_id));
         // return view('quotations.show')->with('quotations', $quotations);
     }
 

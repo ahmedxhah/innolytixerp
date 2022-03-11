@@ -32,7 +32,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    @include('invoices.fields')
+                    @include('invoices.endfields')
                 </div>
             </div>
             <div class="card-footer">
