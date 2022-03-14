@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property string $date
  * @property string $subject
- * @property integer $client_id
+ * @property integer $joborder_id
  * @property integer $officedetails_id
  * @property integer $sub_total
  * @property integer $discount
@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property integer $grand_total
  * @property integer $bank_id
  * @property integer $created_by
+ * @property integer $notes
  */
 class Invoices extends Model
 {
@@ -37,14 +38,15 @@ class Invoices extends Model
     public $fillable = [
         'date',
         'subject',
-        'client_id',
+        'joborder_id',
         'officedetails_id',
         'sub_total',
         'discount',
         'tax',
         'grand_total',
         'bank_id',
-        'created_by'
+        'created_by',
+        'notes'
     ];
 
     /**
@@ -56,14 +58,15 @@ class Invoices extends Model
         'id' => 'integer',
         'date' => 'date',
         'subject' => 'string',
-        'client_id' => 'integer',
+        'joborder_id' => 'integer',
         'officedetails_id' => 'integer',
         'sub_total' => 'integer',
         'discount' => 'integer',
         'tax' => 'integer',
         'grand_total' => 'integer',
         'bank_id' => 'integer',
-        'created_by' => 'integer'
+        'created_by' => 'integer',
+        'notes' => 'string'
     ];
 
     /**

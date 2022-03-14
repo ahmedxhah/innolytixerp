@@ -15,17 +15,17 @@ class CreateQuotationTable extends Migration
     public function up()
     {
         Schema::create('quotation', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->date('date');
-            $table->longText('subject');
-            $table->integer('sub_total');
-            $table->integer('discount');
-            $table->integer('tax');
-            $table->integer('grand_total');
+            $table->longText('subject')->nullable();
+            $table->integer('sub_total')->nullable();
+            $table->integer('discount')->nullable();
+            $table->integer('tax')->nullable();
+            $table->integer('grand_total')->nullable();
             $table->bigInteger('client_id')->unsigned();
             $table->bigInteger('officedetails_id')->unsigned();
             $table->bigInteger('created_by')->unsigned();
-            
+
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('client_id')->references('id')->on('clients');

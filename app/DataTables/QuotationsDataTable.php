@@ -2,10 +2,14 @@
 
 namespace App\DataTables;
 
+use App\Models\Clients;
+use App\Models\User;
+use App\Models\OfficeDetails;
 use App\Models\Quotations;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Column;
+
 
 class QuotationsDataTable extends DataTable
 {
@@ -18,8 +22,22 @@ class QuotationsDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
-
-        return $dataTable->addColumn('action', 'quotations.datatables_actions');
+        // dd($dataTable);
+        return $dataTable->addColumn('action', 'quotations.datatables_actions')
+        ->editColumn('client_id', function($id) {
+            $client=Clients::where('id',$id->client_id)->first();
+            return $client->name;
+        })->editColumn('officedetails_id', function($id) {
+            $officedetails=OfficeDetails::where('id',$id->officedetails_id)->first();
+            return $officedetails->name;
+        })->editColumn('created_by', function($id) {
+            $created_by=User::where('id',$id->created_by)->first();
+            return $created_by->name;
+        })->editColumn('tax', function($id) {
+            return $id->tax . '%';
+        })->editColumn('discount', function($id) {
+            return $id->discount . '%';
+        });
     }
 
     /**
@@ -52,27 +70,27 @@ class QuotationsDataTable extends DataTable
                     [
                        'extend' => 'create',
                        'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-plus"></i> ' .__('auth.app.create').''
+                       'text' => '<i class="fa fa-plus"></i> ' .__('Create').''
                     ],
                     [
                        'extend' => 'export',
                        'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-download"></i> ' .__('auth.app.export').''
+                       'text' => '<i class="fa fa-download"></i> ' .__('Export').''
                     ],
                     [
                        'extend' => 'print',
                        'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-print"></i> ' .__('auth.app.print').''
+                       'text' => '<i class="fa fa-print"></i> ' .__('Print').''
                     ],
                     [
                        'extend' => 'reset',
                        'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-undo"></i> ' .__('auth.app.reset').''
+                       'text' => '<i class="fa fa-undo"></i> ' .__('Reset').''
                     ],
                     [
                        'extend' => 'reload',
                        'className' => 'btn btn-default btn-sm no-corner',
-                       'text' => '<i class="fa fa-refresh"></i> ' .__('auth.app.reload').''
+                       'text' => '<i class="fa fa-refresh"></i> ' .__('Reload').''
                     ],
                 ],
                  'language' => [

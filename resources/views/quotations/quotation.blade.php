@@ -553,28 +553,20 @@
                       </table>
 
                       <table class="balance">
-                        @if(@$quotations->discount)
                             <tr>
                                 <th>Sub Total</th>
                                 <td><span>Rs: </span><span>{{$quotations->sub_total}}/-</span></td>
                             </tr>
-                        @endif
                         @if(@$quotations->discount)
                             <tr>
-                                <th>Discount</th>
-                                <td><span>Rs: </span><span>{{$quotations->discount}}/-</span></td>
+                                <th>Discount {{$quotations->discount}}%</th>
+                                <td><span>Rs: </span><span>{{($quotations->discount/100)*$quotations->sub_total}}/-</span></td>
                             </tr>
-                        @endif
-                        @if(@$quotations->discount)
-                        <tr>
-                            <th>Total</th>
-                            <td><span>Rs: </span><span>{{round(@$total_row)}}/-</span></td>
-                        </tr>
                         @endif
                         @if(@$quotations->tax)
                         <tr>
-                            <th>Tax {{$quotations->tax}}%</th>
-                            <td><span>Rs: </span><span>{{$quotations->tax}}/-</span></td>
+                            <th>Tax {{@$quotations->tax}}%</th>
+                            <td><span>Rs: </span><span>{{($quotations->tax/100)*$quotations->sub_total}}/-</span></td>
                         </tr>
                         @endif
                         @if(@$quotations->grand_total)

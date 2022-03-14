@@ -18,8 +18,8 @@
 
 <!-- Client Id Field -->
 <div class="col-sm-12">
-    {!! Form::label('client_id', __('models/invoices.fields.client_id').':') !!}
-    <p>{{ $invoices->client_id }}</p>
+    {!! Form::label('joborder_id', __('models/invoices.fields.joborder_id').':') !!}
+    <p>{{ $invoices->joborder_id }}</p>
 </div>
 
 <!-- Officedetails Id Field -->
@@ -62,6 +62,12 @@
 <div class="col-sm-12">
     {!! Form::label('created_by', __('models/invoices.fields.created_by').':') !!}
     <p>{{ $invoices->created_by }}</p>
+</div>
+
+<!-- Notes Field -->
+<div class="col-sm-12">
+    {!! Form::label('notes', __('models/invoices.fields.notes').':') !!}
+    <p>{{ $invoices->notes }}</p>
 </div>
 
 <!-- Created At Field -->

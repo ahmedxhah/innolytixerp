@@ -15,7 +15,7 @@ class CreateTaxsTable extends Migration
     public function up()
     {
         Schema::create('taxs', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('title');
             $table->integer('percent');
             $table->bigInteger('created_by')->unsigned();

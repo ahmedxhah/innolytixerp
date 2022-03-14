@@ -9,9 +9,11 @@ use App\Http\Requests\UpdateInvoicesRequest;
 use App\Models\Banks;
 use App\Repositories\InvoicesRepository;
 use App\Models\Clients;
+use App\Models\JobOrder;
 use App\Models\InvoicesProducts;
 use App\Models\OfficeDetails;
 use App\Models\Tax;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Vendor;
 use Flash;
 use App\Http\Controllers\AppBaseController;
@@ -47,7 +49,7 @@ class InvoicesController extends AppBaseController
     public function create()
     {
         return view('invoices.create')
-        ->with('clients',Clients::all())
+        ->with('joborders',JobOrder::all())
         ->with('officedetails',OfficeDetails::all())
         ->with('taxs',Tax::all())
         ->with('vendors',Vendor::all())
@@ -66,12 +68,24 @@ class InvoicesController extends AppBaseController
         $input = $request->all();
         $products=$input['product'];
         unset($input['product']);
+
+        $subtotal=0;
+        foreach($products as $k=>$pro){
+            $products[$k]['total']=$pro['qty']*$pro['unitprice'];
+            $subtotal+=$pro['qty']*$pro['unitprice'];
+        }
+
         $input['created_by']=Auth::id();
+        $input['sub_total']=$subtotal;
+        $discount=($input['discount']/100)*$subtotal;
+        $tax=($input['tax']/100)*$subtotal;
+        $input['grand_total']=$subtotal+$tax-$discount;
+
         $invoices = $this->invoicesRepository->create($input);
+
         if($invoices){
             foreach($products as $k=>$pro){
-                $products[$k]['quotation_id']=$invoices->id;
-                $products[$k]['total']=$pro['qty']*$pro['unitprice'];
+                $products[$k]['invoice_id']=$invoices->id;
                 InvoicesProducts::create($products[$k]);
             }
         }
@@ -97,8 +111,12 @@ class InvoicesController extends AppBaseController
 
             return redirect(route('invoices.index'));
         }
-
-        return view('invoices.show')->with('invoices', $invoices);
+        return view('invoices.invoice')
+        ->with('invoices', $invoices)
+        ->with('products',InvoicesProducts::where('invoice_id',$invoices->id)->get())
+        ->with('joborder',JobOrder::find($invoices->joborder_id)->with('client')->first())
+        ->with('office_detail',OfficeDetails::find($invoices->officedetails_id));
+        // return view('invoices.show')->with('invoices', $invoices);
     }
 
     /**

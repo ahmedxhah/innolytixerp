@@ -15,15 +15,15 @@ class CreateQuotationProductsTable extends Migration
     public function up()
     {
         Schema::create('quotation_products', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name');
-            $table->longText('description');
-            $table->string('model_no');
-            $table->string('brand');
-            $table->integer('unitprice');
-            $table->integer('qty');
-            $table->integer('total');
-            $table->bigInteger('vendor_id')->unsigned();
+            $table->longText('description')->nullable();
+            $table->string('model_no')->nullable();
+            $table->string('brand')->nullable();
+            $table->integer('unitprice')->nullable();
+            $table->integer('qty')->nullable();
+            $table->integer('total')->nullable();
+            $table->bigInteger('vendor_id')->unsigned()->nullable();
             $table->bigInteger('quotation_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();

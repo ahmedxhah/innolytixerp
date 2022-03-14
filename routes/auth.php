@@ -66,3 +66,12 @@ Route::resource('invoices', App\Http\Controllers\InvoicesController::class);
 
 
 Route::resource('invoicesProducts', App\Http\Controllers\InvoicesProductsController::class);
+
+
+Route::resource('transections', App\Http\Controllers\TransectionsController::class);
+
+
+Route::resource('purchaseOrders', App\Http\Controllers\PurchaseOrderController::class);
+
+
+Route::resource('purchaseorderproducts', App\Http\Controllers\PurchaseorderproductsController::class);

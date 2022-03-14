@@ -1,10 +1,4 @@
 
-<!-- Sub Total Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('sub_total', __('models/invoices.fields.sub_total').':') !!}
-    {!! Form::number('sub_total', null, ['class' => 'form-control']) !!}
-</div>
-
 <!-- Discount Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('discount', __('models/invoices.fields.discount').':') !!}
@@ -24,8 +18,12 @@
 </div>
 
 <!-- Grand Total Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('grand_total', __('models/invoices.fields.grand_total').':') !!}
-    {!! Form::number('grand_total', null, ['class' => 'form-control']) !!}
+<div class="form-group col-sm-12">
+    {!! Form::label('notes', 'Note') !!}
+    {!! Form::textarea('notes', 'Terms & Conditions:
+    1. Cheque should be drawn in favor of "Innolytix Pakistan Private Limited."
+    2. Payment should be made as per agreed terms & Conditions.
+    3. IPPL is expemted from Withholding Tax, according to the CONCEPT OF ‘STARTUP BUSINESS’ & RELATED INCENTIVES, Financial Act, 2017
+    [Section 2(62A), Clause (143) of Part I of Second Schedule and Clauses (11A) & (43F) of Part IV of Second Schedule] ', ['class' => 'form-control']) !!}
 </div>
 

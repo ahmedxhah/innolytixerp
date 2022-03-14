@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use App\Models\Clients;
 
 /**
  * Class JobOrder
@@ -22,7 +22,7 @@ class JobOrder extends Model
 
 
     public $table = 'job_orders';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -54,8 +54,9 @@ class JobOrder extends Model
      * @var array
      */
     public static $rules = [
-        
-    ];
 
-    
+    ];
+    public function client(){
+        return $this->belongsTo(Clients::class);
+    }
 }

@@ -15,7 +15,7 @@ class CreateJobOrdersTable extends Migration
     public function up()
     {
         Schema::create('job_orders', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->bigInteger('client_id')->unsigned();
             $table->string('title');
             $table->string('unique_id');

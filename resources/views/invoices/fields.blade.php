@@ -1,11 +1,11 @@
 <!-- Client Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('client_id', __('models/invoices.fields.client_id').':') !!}
+    {!! Form::label('joborder_id', 'Job Order') !!}
     {{-- {!! Form::number('client_id', null, ['class' => 'form-control']) !!} --}}
-    <select name="client_id" id="" class="form-control">
+    <select name="joborder_id" id="" class="form-control">
         <option value=""></option>
-        @foreach ($clients as $item)
-            <option value="{{$item->id}}">{{$item->name}}</option>
+        @foreach ($joborders as $item)
+            <option value="{{$item->id}}">{{$item->unique_id}}</option>
         @endforeach
     </select>
 </div>

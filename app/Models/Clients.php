@@ -25,7 +25,7 @@ class Clients extends Model
 
 
     public $table = 'clients';
-    
+
 
 
 
@@ -62,8 +62,7 @@ class Clients extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
-    
 }

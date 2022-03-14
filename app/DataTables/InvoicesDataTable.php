@@ -91,14 +91,14 @@ class InvoicesDataTable extends DataTable
         return [
             'date' => new Column(['title' => __('models/invoices.fields.date'), 'data' => 'date']),
             'subject' => new Column(['title' => __('models/invoices.fields.subject'), 'data' => 'subject']),
-            'client_id' => new Column(['title' => __('models/invoices.fields.client_id'), 'data' => 'client_id']),
+            'joborder_id' => new Column(['title' => __('models/invoices.fields.joborder_id'), 'data' => 'joborder_id']),
             'officedetails_id' => new Column(['title' => __('models/invoices.fields.officedetails_id'), 'data' => 'officedetails_id']),
             'sub_total' => new Column(['title' => __('models/invoices.fields.sub_total'), 'data' => 'sub_total']),
             'discount' => new Column(['title' => __('models/invoices.fields.discount'), 'data' => 'discount']),
             'tax' => new Column(['title' => __('models/invoices.fields.tax'), 'data' => 'tax']),
             'grand_total' => new Column(['title' => __('models/invoices.fields.grand_total'), 'data' => 'grand_total']),
             'bank_id' => new Column(['title' => __('models/invoices.fields.bank_id'), 'data' => 'bank_id']),
-            'created_by' => new Column(['title' => __('models/invoices.fields.created_by'), 'data' => 'created_by'])
+            'created_by' => new Column(['title' => __('models/invoices.fields.created_by'), 'data' => 'created_by']),
         ];
     }
 

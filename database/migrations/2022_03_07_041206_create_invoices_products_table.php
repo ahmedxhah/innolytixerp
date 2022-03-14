@@ -15,14 +15,14 @@ class CreateInvoicesProductsTable extends Migration
     public function up()
     {
         Schema::create('invoices_products', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name');
-            $table->string('description');
-            $table->string('model_no');
-            $table->string('brand');
-            $table->integer('unitprice');
-            $table->integer('qty');
-            $table->integer('total');
+            $table->string('description')->nullable();
+            $table->string('model_no')->nullable();
+            $table->string('brand')->nullable();
+            $table->integer('unitprice')->nullable();
+            $table->integer('qty')->nullable();
+            $table->integer('total')->nullable();
             $table->bigInteger('vendor_id')->unsigned();
             $table->bigInteger('invoice_id')->unsigned();
             $table->timestamps();
