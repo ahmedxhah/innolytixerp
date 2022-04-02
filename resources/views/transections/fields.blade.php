@@ -32,8 +32,8 @@
     {!! Form::label('type', __('models/transections.fields.type').':') !!}
     {{-- {!! Form::text('type', null, ['class' => 'form-control']) !!} --}}
     <select name="type" id="" class="form-control">
-        <option value="credit">Credit</option>
-        <option value="debit">Debit</option>
+        <option value="recieved">Payment Recieved</option>
+        <option value="expense">Paid Expense</option>
     </select>
 </div>
 <!-- Title Field -->

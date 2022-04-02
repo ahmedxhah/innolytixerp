@@ -9,6 +9,8 @@ use App\Http\Requests\UpdateJobOrderRequest;
 use App\Repositories\JobOrderRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Clients;
+use Illuminate\Support\Facades\Auth;
 use Response;
 
 class JobOrderController extends AppBaseController
@@ -40,7 +42,7 @@ class JobOrderController extends AppBaseController
      */
     public function create()
     {
-        return view('job_orders.create');
+        return view('job_orders.create')->with('clients',Clients::get());
     }
 
     /**
@@ -53,7 +55,7 @@ class JobOrderController extends AppBaseController
     public function store(CreateJobOrderRequest $request)
     {
         $input = $request->all();
-
+        $input['created_by']=Auth::id();
         $jobOrder = $this->jobOrderRepository->create($input);
 
         Flash::success(__('messages.saved', ['model' => __('models/jobOrders.singular')]));

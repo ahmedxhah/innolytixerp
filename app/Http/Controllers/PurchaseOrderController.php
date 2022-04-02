@@ -9,6 +9,7 @@ use App\Http\Requests\UpdatePurchaseOrderRequest;
 use App\Repositories\PurchaseOrderRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Vendor;
 use Response;
 
 class PurchaseOrderController extends AppBaseController
@@ -40,7 +41,7 @@ class PurchaseOrderController extends AppBaseController
      */
     public function create()
     {
-        return view('purchase_orders.create');
+        return view('purchase_orders.create')->with('vendors',Vendor::get());
     }
 
     /**

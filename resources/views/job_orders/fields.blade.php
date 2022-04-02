@@ -1,7 +1,13 @@
 <!-- Client Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('client_id', __('models/jobOrders.fields.client_id').':') !!}
-    {!! Form::number('client_id', null, ['class' => 'form-control']) !!}
+    <select name="client_id" id="" class="form-control">
+        <option value=""></option>
+        @foreach ($clients as $item)
+            <option value="{{$item->id}}">{{$item->name}}</option>
+        @endforeach
+    </select>
+    {{-- {!! Form::number('client_id', null, ['class' => 'form-control']) !!} --}}
 </div>
 
 <!-- Title Field -->
@@ -16,8 +22,3 @@
     {!! Form::text('unique_id', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Created By Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('created_by', __('models/jobOrders.fields.created_by').':') !!}
-    {!! Form::number('created_by', null, ['class' => 'form-control']) !!}
-</div>
