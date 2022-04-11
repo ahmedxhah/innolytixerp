@@ -357,3 +357,10 @@ if($isinvoicescreate||$isinvoiceproduct){
     </a>
 </li>
 
+<li class="nav-item">
+    <a href="{{ route('accountsHeads.index') }}"
+       class="nav-link {{ Request::is('accountsHeads*') ? 'active' : '' }}">
+        <p>@lang('models/accountsHeads.plural')</p>
+    </a>
+</li>
+

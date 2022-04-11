@@ -7,7 +7,7 @@
 </div>
 <div class="form-group col-sm-6">
     {!! Form::label('parent', __('Parent').':') !!}
-    <select name="parent_id" id="" class="form-control">
+    <select name="head_id" id="" class="form-control">
         <option value="">HEAD</option>
         @foreach($accounts as $item)
             <option value="{{$item->id}}">{{$item->name}}</option>

@@ -90,3 +90,6 @@ Route::resource('paymentvouchers', App\Http\Controllers\PaymentvoucherController
 
 
 Route::resource('generalvouchers', App\Http\Controllers\GeneralvoucherController::class);
+
+
+Route::resource('accountsHeads', App\Http\Controllers\AccountsHeadController::class);

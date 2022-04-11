@@ -10,6 +10,7 @@ use App\Repositories\ChartofaccountsRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Account;
+use App\Models\AccountsHead;
 use App\Models\Chartofaccounts;
 use Response;
 use Scottlaurent\Accounting\Models\Journal;
@@ -34,7 +35,7 @@ class ChartofaccountsController extends AppBaseController
      */
     public function index()
     {
-        return view('chartofaccounts.index')->with('accounts',Account::get()->where('has_parent',0));
+        return view('chartofaccounts.index')->with('accounts',AccountsHead::get()->where('has_parent',0));
     }
 
     /**
@@ -44,7 +45,7 @@ class ChartofaccountsController extends AppBaseController
      */
     public function create()
     {
-        return view('chartofaccounts.create')->with('accounts',Account::get()->where('has_parent',0));
+        return view('chartofaccounts.create')->with('accounts',AccountsHead::get()->where('has_parent',0));
     }
 
     /**
@@ -58,10 +59,8 @@ class ChartofaccountsController extends AppBaseController
     {
         $input = $request->all();
 
-        $account=Account::find($input['parent_id']);
-        $account->has_child=1;
+        $account=Account::find($input['head_id']);
         $account->save();
-        $input['has_parent']=1;
 
         $this->chartofaccounts = Account::create($input)->initJournal();
         $this->chartofaccounts->assignToLedger($account->journal->ledger);
