@@ -24,6 +24,7 @@ class Clients extends Model
 {
 
 
+
     public $table = 'clients';
 
 

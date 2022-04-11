@@ -322,3 +322,38 @@ if($isinvoicescreate||$isinvoiceproduct){
     </a>
 </li>
 
+<li class="nav-item">
+    <a href="{{ route('chartofaccounts.index') }}"
+       class="nav-link {{ Request::is('chartofaccounts*') ? 'active' : '' }}">
+        <p>@lang('models/chartofaccounts.plural')</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('ledgers.index') }}"
+       class="nav-link {{ Request::is('ledgers*') ? 'active' : '' }}">
+        <p>@lang('models/ledgers.plural')</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('reciptvouchers.index') }}"
+       class="nav-link {{ Request::is('reciptvouchers*') ? 'active' : '' }}">
+        <p>@lang('models/reciptvouchers.plural')</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('paymentvouchers.index') }}"
+       class="nav-link {{ Request::is('paymentvouchers*') ? 'active' : '' }}">
+        <p>@lang('models/paymentvouchers.plural')</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('generalvouchers.index') }}"
+       class="nav-link {{ Request::is('generalvouchers*') ? 'active' : '' }}">
+        <p>@lang('models/generalvouchers.plural')</p>
+    </a>
+</li>
+

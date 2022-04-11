@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateInvoicesRequest;
 use App\Models\Banks;
 use App\Repositories\InvoicesRepository;
 use App\Models\Clients;
+use App\Models\Invoices;
 use App\Models\JobOrder;
 use App\Models\InvoicesProducts;
 use App\Models\OfficeDetails;
@@ -18,6 +19,15 @@ use App\Models\Vendor;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use App\Models\User;
+use App\Models\Account;
+use App\Models\CompanyJournal;
+use Scottlaurent\Accounting\Models\Ledger;
+use Scottlaurent\Accounting\Models\Journal;
+use Scottlaurent\Accounting\Models\JournalTransaction;
+use Scottlaurent\Accounting\Services\Accounting as AccountingService;
+use Scottlaurent\Accounting\Providers\AccountingServiceProvider;
+
 
 class InvoicesController extends AppBaseController
 {
@@ -48,6 +58,72 @@ class InvoicesController extends AppBaseController
      */
     public function create()
     {
+
+        // $this->company_assets_ledger = Ledger::create([
+        //     'name' => 'Company Assets',
+        //     'type' => 'asset'
+        // ]);
+
+        // $this->company_liability_ledger = Ledger::create([
+        //     'name' => 'Company Liabilities',
+        //     'type' => 'liability'
+        // ]);
+
+        // $this->company_equity_ledger = Ledger::create([
+        //     'name' => 'Company Equity',
+        //     'type' => 'equity'
+        // ]);
+
+        // $this->company_income_ledger = Ledger::create([
+        //     'name' => 'Company Income',
+        //     'type' => 'income'
+        // ]);
+
+        // $this->company_expense_ledger = Ledger::create([
+        //     'name' => 'Company Expenses',
+        //     'type' => 'expense'
+        // ]);
+        // //
+        // $company_ar_journal = Account::where('name', 'Company Accounts Receivable')->first();
+        // $company_cash_journal = Account::where('name','Company Asset Account')->first();
+        // $this->company_ar_journal = Account::get();
+        // dd($this->company_ar_journal);
+        // dd($company_cash_journal->journal->transactions);
+        // $this->company_ar_journal = Account::create(['name' => 'Company Accounts Receivable'])->initJournal();
+        // $this->company_ar_journal->assignToLedger($this->company_assets_ledger);
+
+        // $this->company_asset_journal = Account::create(['name' => 'Company Asset Account'])->initJournal();
+        // $this->company_asset_journal->assignToLedger($this->company_assets_ledger);
+
+        // $this->company_cash_journal = Account::create(['name' => 'Company Patty Cash'])->initJournal();
+        // $this->company_cash_journal->assignToLedger($this->company_assets_ledger);
+
+        // $this->company_expense_journal = Account::create(['name' => 'Company Expense Account'])->initJournal();
+        // $this->company_expense_journal->assignToLedger($this->company_expense_ledger);
+
+        // $this->company_libality_journal = Account::create(['name' => 'Company Accounts Payable'])->initJournal();
+        // // $this->company_libality_journal->assignToLedger($this->company_liability_ledger);
+        // // this represents some kind of sale to a customer for $500 based on an invoiced ammount of 500.
+        // // $user = Auth::user();
+        // $transaction_group = AccountingService::newDoubleEntryTransactionGroup();
+        // $transaction_group->addDollarTransaction($this->$company_ar_journal, 'debit', 100);
+        // $transaction_group->addDollarTransaction($this->company_ar_journal, 'credit', 100);
+        // $transaction_group->addDollarTransaction($this->company_cash_journal, 'credit', 75);
+        // $transaction_group->addDollarTransaction($this->company_libality_journal, 'credit', 25);
+        // $transaction_group_uuid = $transaction_group->commit();
+        // $current_balance1 = $this->company_assets_ledger->getCurrentBalanceInDollars();
+        // $current_balance2 = $this->company_liability_ledger->getCurrentBalanceInDollars();
+        // $current_balance3 = $this->company_expense_ledger->getCurrentBalanceInDollars();
+
+
+        // dd($current_balance1,$current_balance2,$current_balance3);
+        // dd(JournalTransaction::where('transaction_group', $transaction_group_uuid)->get());
+        // this represents some kind of sale to a customer for $500 based on an invoiced ammount of 500.
+        // $transaction_group = AccountingService::newDoubleEntryTransactionGroup();
+        // $transaction_group->addDollarTransaction($this->company_cash_journal,'credit',500);  // your user journal probably is an income ledger
+        // $transaction_group->addDollarTransaction($this->company_ar_journal,'debit',500); // this is an asset ledder
+        // $transaction_group->commit();
+        //
         return view('invoices.create')
         ->with('joborders',JobOrder::all())
         ->with('officedetails',OfficeDetails::all())
@@ -82,6 +158,15 @@ class InvoicesController extends AppBaseController
         $input['grand_total']=$subtotal+$tax-$discount;
 
         $invoices = $this->invoicesRepository->create($input);
+
+    // locate a product (optional)
+
+    $this->company_ar_journal = Account::where('name', 'Company Accounts Receivable')->first();
+    $this->joborder = JobOrder::find($invoices->joborder_id);
+    $transaction_group = AccountingService::newDoubleEntryTransactionGroup();
+    $transaction_group->addDollarTransaction($this->joborder->journal, 'credit', $input['grand_total'],'Invoice to customer',$invoices);
+    $transaction_group->addDollarTransaction($this->company_ar_journal->journal,'debit', $input['grand_total'],'Invoice to customer',$invoices);
+    $transaction_group_uuid = $transaction_group->commit();
 
         if($invoices){
             foreach($products as $k=>$pro){

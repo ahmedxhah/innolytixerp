@@ -21,3 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Route::resource('vendors', App\Http\Controllers\API\VendorAPIController::class);
 
+
+
+Route::resource('ledgers', App\Http\Controllers\API\LedgersAPIController::class);

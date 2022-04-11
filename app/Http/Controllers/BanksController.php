@@ -10,7 +10,9 @@ use App\Repositories\BanksRepository;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Banks;
 use Response;
+use Scottlaurent\Accounting\Models\Ledger;
 
 class BanksController extends AppBaseController
 {
@@ -55,7 +57,10 @@ class BanksController extends AppBaseController
     {
         $input = $request->all();
         $input['created_by']=Auth::id();
-        $banks = $this->banksRepository->create($input);
+        // $banks = $this->banksRepository->create($input);
+        $this->company_asset_ledger=Ledger::where('type','asset')->first();
+        $this->bank = Banks::create($input)->initJournal();
+        $this->bank->assignToLedger($this->company_asset_ledger);
 
         Flash::success(__('messages.saved', ['model' => __('models/banks.singular')]));
 

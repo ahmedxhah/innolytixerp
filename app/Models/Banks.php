@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Scottlaurent\Accounting\ModelTraits\AccountingJournal;
 
 /**
  * Class Banks
@@ -21,11 +21,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Banks extends Model
 {
-    use SoftDeletes;
+    use AccountingJournal, SoftDeletes;
 
 
     public $table = 'banks';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -63,8 +63,8 @@ class Banks extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
-    
+
 }

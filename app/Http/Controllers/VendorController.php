@@ -10,7 +10,9 @@ use App\Repositories\VendorRepository;
 use Illuminate\Support\Facades\Auth;
 use Laracasts\Flash\Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Vendor;
 use Response;
+use Scottlaurent\Accounting\Models\Ledger;
 
 class VendorController extends AppBaseController
 {
@@ -54,7 +56,10 @@ class VendorController extends AppBaseController
     {
         $input = $request->all();
         $input['user_id']=Auth::id();
-        $vendor = $this->vendorRepository->create($input);
+        // $vendor = $this->vendorRepository->create($input);
+        $this->company_payable_ledger=Ledger::where('type','liability')->first();
+        $this->vandor = Vendor::create($input)->initJournal();
+        $this->vandor->assignToLedger($this->company_payable_ledger);
 
         Flash::success(__('messages.saved', ['model' => __('models/vendors.singular')]));
 

@@ -6,10 +6,14 @@ use App\DataTables\JobOrderDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateJobOrderRequest;
 use App\Http\Requests\UpdateJobOrderRequest;
+use App\Models\Invoices;
+use App\Models\JobOrder;
 use App\Repositories\JobOrderRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Account;
 use App\Models\Clients;
+use Scottlaurent\Accounting\Models\Ledger;
 use Illuminate\Support\Facades\Auth;
 use Response;
 
@@ -54,10 +58,13 @@ class JobOrderController extends AppBaseController
      */
     public function store(CreateJobOrderRequest $request)
     {
+
+        // dd($ledger);
         $input = $request->all();
         $input['created_by']=Auth::id();
-        $jobOrder = $this->jobOrderRepository->create($input);
-
+        $this->company_income_ledger=Ledger::where('type','income')->first();
+        $this->jobOrder = JobOrder::create($input)->initJournal();
+        $this->jobOrder->assignToLedger($this->company_income_ledger);
         Flash::success(__('messages.saved', ['model' => __('models/jobOrders.singular')]));
 
         return redirect(route('jobOrders.index'));
@@ -72,6 +79,38 @@ class JobOrderController extends AppBaseController
      */
     public function show($id)
     {
+        $jobOrder = JobOrder::find($id);
+        // locate a user (or ANY MODEL that implementes the AccountingJournal trait)
+        $current_balance = $jobOrder->journal->transactions;
+        dd($current_balance);
+         // locate a product (optional)
+         $product = Invoices::find(5);
+
+         // init a journal for this user (do this only once)
+         // $jobOrder->initJournal();
+
+         // credit the user and reference the product
+         $transaction_1 = $jobOrder->journal->creditDollars(100);
+         $transaction_1->referencesObject($product);
+
+         // check our balance (should be 100)
+         $current_balance = $jobOrder->journal->getCurrentBalanceInDollars();
+
+         // debit the user
+         $transaction_2 = $jobOrder->journal->debitDollars(75);
+
+         // check our balance (should be 25)
+         $current_balance2 = $jobOrder->journal->getCurrentBalanceInDollars();
+
+         //get the product referenced in the journal (optional)
+         $product_copy = $transaction_1->getReferencedObject();
+         dd($current_balance,$current_balance2,$product_copy);
+      // $this->company_expense_ledger = Ledger::create([
+     //     'name' => 'Company Expenses',
+     //     'type' => 'expense'
+     // ]);
+// $this->company_ar_journal = Account::create(['name' => 'Company Accounts Receivable'])->initJournal();
+     // $this->company_ar_journal->assignToLedger($this->company_assets_ledger);
         $jobOrder = $this->jobOrderRepository->find($id);
 
         if (empty($jobOrder)) {

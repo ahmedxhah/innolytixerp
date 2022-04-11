@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Scottlaurent\Accounting\ModelTraits\AccountingJournal;
 use App\Models\Clients;
+use Scottlaurent\Accounting\Models\Ledger;
 
 /**
  * Class JobOrder
@@ -18,15 +20,13 @@ use App\Models\Clients;
  */
 class JobOrder extends Model
 {
-    use SoftDeletes;
+    use AccountingJournal, SoftDeletes;
 
 
     public $table = 'job_orders';
 
 
     protected $dates = ['deleted_at'];
-
-
 
     public $fillable = [
         'client_id',

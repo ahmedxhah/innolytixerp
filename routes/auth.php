@@ -75,3 +75,18 @@ Route::resource('purchaseOrders', App\Http\Controllers\PurchaseOrderController::
 
 
 Route::resource('purchaseorderproducts', App\Http\Controllers\PurchaseorderproductsController::class);
+
+
+Route::resource('chartofaccounts', App\Http\Controllers\ChartofaccountsController::class);
+
+
+Route::resource('ledgers', App\Http\Controllers\LedgersController::class);
+
+
+Route::resource('reciptvouchers', App\Http\Controllers\ReciptvoucherController::class);
+
+
+Route::resource('paymentvouchers', App\Http\Controllers\PaymentvoucherController::class);
+
+
+Route::resource('generalvouchers', App\Http\Controllers\GeneralvoucherController::class);
