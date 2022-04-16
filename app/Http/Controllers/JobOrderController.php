@@ -12,6 +12,7 @@ use App\Repositories\JobOrderRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Account;
+use App\Models\AccountsHead;
 use App\Models\Clients;
 use Scottlaurent\Accounting\Models\Ledger;
 use Illuminate\Support\Facades\Auth;
@@ -62,9 +63,21 @@ class JobOrderController extends AppBaseController
         // dd($ledger);
         $input = $request->all();
         $input['created_by']=Auth::id();
-        $this->company_income_ledger=Ledger::where('type','income')->first();
-        $this->jobOrder = JobOrder::create($input)->initJournal();
-        $this->jobOrder->assignToLedger($this->company_income_ledger);
+        $jobOrder = JobOrder::create($input);
+
+        $heads=AccountsHead::where('name','Trade Creditors')->first();
+        $this->company_asset_ledger=Ledger::where('type','liability')->first();
+
+        $account=[
+            'name' => $input['unique_id'],
+            'head_id' => $heads->id,
+            'type' => 'joborder',
+            'type_id'=>$jobOrder->id,
+        ];
+
+        $this->company_expense_journal = Account::create($account)->initJournal();
+        $this->company_expense_journal->assignToLedger($this->company_asset_ledger);
+
         Flash::success(__('messages.saved', ['model' => __('models/jobOrders.singular')]));
 
         return redirect(route('jobOrders.index'));

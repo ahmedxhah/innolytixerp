@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Scottlaurent\Accounting\ModelTraits\AccountingJournal;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * Class Account
@@ -15,15 +16,15 @@ use Scottlaurent\Accounting\ModelTraits\AccountingJournal;
 class Account extends Model
 {
 	use AccountingJournal;
-    protected $fillable=['name','parent_id','has_parent'];
+    protected $fillable=['name','head_id','level','type','type_id'];
+    protected $appends = ['current_balance'];
 
-    public function parent()
+    public function morphed(): MorphTo
     {
-        return $this->belongsTo(Account::class, 'parent_id');
+        return $this->morphTo();
     }
 
-    public function children()
-    {
-        return $this->hasMany(Account::class, 'parent_id');
+    public function getCurrentBalanceAttribute(){
+        return $this->journal->getCurrentBalanceInDollars();
     }
 }

@@ -28,16 +28,17 @@
                 {{-- @include('accounts_heads.table') --}}
                 <div class="sidebar">
                     <nav class="mt-2">
+
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             @foreach ($heads as $item)
                             {{-- <li class="nav-item {{($isinvoicesActive||$isinvoiceproduct||$isinvoicescreate)?'menu-open':''}} "> --}}
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-shield-virus"></i>
-                                        <p>
+                                        <p style="width: 600px">
                                             {{$item->name}}
                                             <i class="fas fa-angle-left right"></i>
-                                        </p>
+                                        </p><p style="padding-left: 100px">{{$item->getheadbalancebalance()}}</p>
                                     </a>
                                     @if($item->has_child)
                                         @foreach($item->children as $d)
@@ -45,7 +46,7 @@
                                                 <li class="nav-item">
                                                     <a href="{{ route('invoices.index') }}" class="nav-link">
                                                         <i class="nav-icon fas fa-shield-virus"></i>
-                                                        <p>{{$d->name}}</p>
+                                                        <p style="width: 650px">{{$d->name}}</p><p>{{$d->getheadbalancebalance()}}</p>
                                                     </a>
 
                                                 </li>
@@ -54,7 +55,7 @@
                                                         <li class="nav-item" style="margin-left: 50px;">
                                                             <a href="{{ route('invoices.index') }}" class="nav-link">
                                                                 <i class="nav-icon fas fa-shield-virus"></i>
-                                                                <p>{{$i->name}}</p>
+                                                                <p style="width: 600px">{{$i->name}}</p><p>{{$i->getheadbalancebalance()}}</p>
                                                             </a>
                                                         </li>
                                                 @endforeach

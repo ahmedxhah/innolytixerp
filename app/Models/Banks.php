@@ -66,5 +66,9 @@ class Banks extends Model
 
     ];
 
+    public function account(): MorphOne
+    {
+        return $this->morphOne(Account::class, 'morphed');
+    }
 
 }

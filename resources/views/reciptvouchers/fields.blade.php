@@ -3,7 +3,7 @@
     {!! Form::label('bank_account', __('models/reciptvouchers.fields.bank_account').':') !!}
     <select name="bank_account" id="" class="form-control">
         @foreach ($bank as $item)
-            <option value="{{$item->id}}">{{$item->account_title}}</option>
+            <option value="{{$item->id}}">{{$item->name}}</option>
         @endforeach
     </select>
     {{-- {!! Form::text('bank_account', null, ['class' => 'form-control']) !!} --}}
@@ -34,6 +34,6 @@
 
 <!-- Created By Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('created_by', __('models/reciptvouchers.fields.created_by').':') !!}
+    {!! Form::label('created_by', __('Checque No').':') !!}
     {!! Form::text('created_by', null, ['class' => 'form-control']) !!}
 </div>

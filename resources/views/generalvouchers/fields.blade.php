@@ -1,68 +1,27 @@
-<div class="row"></div>
-<!-- Credit Account Field -->
-<div class="form-group col-sm-3">
-    {!! Form::label('credit_account', __('models/generalvouchers.fields.credit_account').':') !!}
-    <select name="credit_account" id="credit_account" class="form-control">
-        <option value="">ACCOUNT TYPE</option>
-        <option value="coa">COA</option>
-        <option value="bank">BANK</option>
-        <option value="joborder">JOBORDER</option>
-    </select>
-</div>
-<div class="form-group col-sm-3">
-    <select name="c_coa_account" id="c_coa_account" style="display:none" class="form-control">
-        <option value="">SELECT ACCOUNT</option>
-        @foreach ($account as $item)
-            <option value="{{$item->id}}">{{$item->name}}</option>
-        @endforeach
-    </select>
-    <select name="c_bank_account" id="c_bank_account" style="display:none" class="form-control">
-        <option value="">SELECT BANK</option>
-        @foreach ($bank as $item)
-            <option value="{{$item->id}}">{{$item->account_title}}</option>
-        @endforeach
-    </select>
-    <select name="c_joborder" id="c_joborder" style="display:none" class="form-control">
-        <option value="">SELECT JOB ORDER</option>
-        @foreach ($joborder as $item)
-            <option value="{{$item->id}}">{{$item->title}}</option>
-        @endforeach
-    </select>
-    {{-- {!! Form::text('credit_account', null, ['class' => 'form-control']) !!} --}}
-</div>
-<br>
 <!-- Dabit Account Field -->
-<div class="form-group col-sm-3">
+<div class="form-group col-sm-6">
     {!! Form::label('dabit_account', __('models/generalvouchers.fields.dabit_account').':') !!}
-    {{-- {!! Form::text('dabit_account', null, ['class' => 'form-control']) !!} --}}
-    <select name="dabit_account" id="dabit_account" class="form-control">
-        <option value="">ACCOUNT TYPE</option>
-        <option value="coa">COA</option>
-        <option value="bank">BANK</option>
-        <option value="joborder">JOBORDER</option>
-    </select>
-</div>
-<div class="form-group col-sm-3">
-    <select name="d_coa_account" id="d_coa_account" style="display:none" class="form-control">
+
+    <select name="d_coa_account" id="d_coa_account"  class="form-control">
         <option value="">SELECT ACCOUNT</option>
         @foreach ($account as $item)
             <option value="{{$item->id}}">{{$item->name}}</option>
         @endforeach
     </select>
-    <select name="d_bank_account" id="d_bank_account" style="display:none" class="form-control">
-        <option value="">SELECT BANK</option>
-        @foreach ($bank as $item)
-            <option value="{{$item->id}}">{{$item->account_title}}</option>
-        @endforeach
-    </select>
-    <select name="d_joborder" id="d_joborder" style="display:none" class="form-control">
-        <option value="">SELECT JOB ORDER</option>
-        @foreach ($joborder as $item)
-            <option value="{{$item->id}}">{{$item->title}}</option>
-        @endforeach
-    </select>
-    {{-- {!! Form::text('credit_account', null, ['class' => 'form-control']) !!} --}}
 </div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('credit_account', __('models/generalvouchers.fields.credit_account').':') !!}
+    <select name="c_coa_account" id="c_coa_account" class="form-control">
+        <option value="">SELECT ACCOUNT</option>
+        @foreach ($account as $item)
+            <option value="{{$item->id}}">{{$item->name}}</option>
+        @endforeach
+    </select>
+</div>
+
+<br>
+
 <!-- Amount Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('amount', __('models/generalvouchers.fields.amount').':') !!}

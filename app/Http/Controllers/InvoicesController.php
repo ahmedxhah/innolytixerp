@@ -161,11 +161,12 @@ class InvoicesController extends AppBaseController
 
     // locate a product (optional)
 
-    $this->company_ar_journal = Account::where('name', 'Company Accounts Receivable')->first();
-    $this->joborder = JobOrder::find($invoices->joborder_id);
+    $this->company_ar_journal = Account::find(29);
+    $this->joborder = Account::where('type_id',$invoices->joborder_id)->where('type','joborder')->first();
+
     $transaction_group = AccountingService::newDoubleEntryTransactionGroup();
-    $transaction_group->addDollarTransaction($this->joborder->journal, 'credit', $input['grand_total'],'Invoice to customer',$invoices);
-    $transaction_group->addDollarTransaction($this->company_ar_journal->journal,'debit', $input['grand_total'],'Invoice to customer',$invoices);
+    $transaction_group->addDollarTransaction($this->joborder->journal, 'debit', $input['grand_total'],'Invoice to customer',$invoices);
+    $transaction_group->addDollarTransaction($this->company_ar_journal->journal,'credit', $input['grand_total'],'Invoice to customer',$invoices);
     $transaction_group_uuid = $transaction_group->commit();
 
         if($invoices){

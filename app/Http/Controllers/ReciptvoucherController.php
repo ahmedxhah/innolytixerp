@@ -10,6 +10,7 @@ use App\Repositories\ReciptvoucherRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Account;
+use App\Models\AccountsHead;
 use App\Models\Banks;
 use Illuminate\Support\Facades\Auth;
 use Scottlaurent\Accounting\Services\Accounting as AccountingService;
@@ -44,7 +45,9 @@ class ReciptvoucherController extends AppBaseController
      */
     public function create()
     {
-        $bank=Banks::get();
+        // $bank=AccountsHead::where('')get();
+        $bank=Account::where('head_id',12)->get();
+        // Banks::get();
         $accounts=Account::get();
         return view('reciptvouchers.create')->with('bank',$bank)->with('account',$accounts);
     }
@@ -60,7 +63,7 @@ class ReciptvoucherController extends AppBaseController
     {
         $input = $request->all();
         // dd($input);
-        $bank=Banks::find($input['bank_account']);
+        $bank=Account::find($input['bank_account']);
         $account=Account::find($input['credit_account']);
         // $bank->journal;
         // $account->journal

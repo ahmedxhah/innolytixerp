@@ -63,17 +63,20 @@ class GeneralvoucherController extends AppBaseController
     public function store(CreateGeneralvoucherRequest $request)
     {
         $input = $request->all();
-        dd($input);
-        $bank=Banks::find($input['bank_account']);
-        $account=Account::find($input['dabit_account']);
+        // dd($input);
+        // if($input['c_coa_account']=='coa'){
 
+        // }
+        $caccount=Account::find($input['c_coa_account']);
+        // $bank=Banks::find($input['bank_account']);
+        $Daccount=Account::find($input['d_coa_account']);
         $transaction_group = AccountingService::newDoubleEntryTransactionGroup();
-        $transaction_group->addDollarTransaction($account->journal, 'debit', $input['amount'],$input['description']);
-        $transaction_group->addDollarTransaction($bank->journal, 'credit', $input['amount'],$input['description']);
+        $transaction_group->addDollarTransaction($Daccount->journal, 'debit', $input['amount'],$input['description']);
+        $transaction_group->addDollarTransaction($caccount->journal, 'credit', $input['amount'],$input['description']);
         $transaction_group_uuid = $transaction_group->commit();
         $input['created_by']=Auth::id();
 
-        $generalvoucher = $this->generalvoucherRepository->create($input);
+        // $generalvoucher = $this->generalvoucherRepository->create($input);
 
         Flash::success(__('messages.saved', ['model' => __('models/generalvouchers.singular')]));
 

@@ -33,7 +33,6 @@ class AccountsHeadController extends AppBaseController
      */
     public function index(AccountsHeadDataTable $accountsHeadDataTable)
     {
-        $data=AccountsHead::where('has_parent',0)->get();
         return view('accounts_heads.index')->with('heads',AccountsHead::where('has_parent',0)->get());
         // return $accountsHeadDataTable->render('accounts_heads.index');
     }
@@ -92,6 +91,7 @@ class AccountsHeadController extends AppBaseController
         $parent->save();
         $input['type']=$parent->type;
         $input['has_parent']=1;
+        $input['ledger_id']=$parent->ledger_id;
         $input['code']=$parent->code+1;
         $accountsHead = $this->accountsHeadRepository->create($input);
 

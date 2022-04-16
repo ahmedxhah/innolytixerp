@@ -15,6 +15,7 @@ use App\Models\Chartofaccounts;
 use Response;
 use Scottlaurent\Accounting\Models\Journal;
 use Scottlaurent\Accounting\Models\Ledger;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ChartofaccountsController extends AppBaseController
 {
@@ -58,12 +59,10 @@ class ChartofaccountsController extends AppBaseController
     public function store(CreateChartofaccountsRequest $request)
     {
         $input = $request->all();
-
-        $account=Account::find($input['head_id']);
-        $account->save();
-
+        $heads=AccountsHead::find($input['head_id']);
+        $ledger=Ledger::find($heads->ledger_id);
         $this->chartofaccounts = Account::create($input)->initJournal();
-        $this->chartofaccounts->assignToLedger($account->journal->ledger);
+        $this->chartofaccounts->assignToLedger($ledger);
 
         // $chartofaccounts = $this->chartofaccountsRepository->create($input);
 
@@ -159,5 +158,28 @@ class ChartofaccountsController extends AppBaseController
         Flash::success(__('messages.deleted', ['model' => __('models/chartofaccounts.singular')]));
 
         return redirect(route('chartofaccounts.index'));
+    }
+    public function getsubaccounts($id)
+    {
+        $data=Account::where('head_id',$id)->get()->toArray();
+        return response()->json($data,200);
+    }
+    public function getaccountledger($id)
+    {
+        $data=Account::find($id);
+        $html='';
+        foreach($data->journal->transactions as $item){
+           $html.= '<tr><td>'.@$item->transaction_group.'</td>
+            <td>'.$item->ref_class.'</td>
+            <td>'.$item->memo.'</td>
+            <td>'.$item->journal->ledger->name.'</td>
+            <td>'.$item->debit.'</td>
+            <td>'.$item->credit.'</td>
+            <td>'.$item->post_date.'</td></tr>';
+        }
+
+        // {{-- <td>{{$item->journal->balance?$item->journal->balance:""}}</td> --}}
+
+        return response()->json($html,200);
     }
 }
