@@ -65,8 +65,8 @@ class JobOrderController extends AppBaseController
         $input['created_by']=Auth::id();
         $jobOrder = JobOrder::create($input);
 
-        $heads=AccountsHead::where('name','Trade Creditors')->first();
-        $this->company_asset_ledger=Ledger::where('type','liability')->first();
+        $heads=AccountsHead::where('name','Accounts Receivables')->first();
+        $this->company_asset_ledger=Ledger::where('type','asset')->first();
 
         $account=[
             'name' => $input['unique_id'],
